@@ -14,7 +14,7 @@ setup(
     author='AWAKENS',
     author_email='',
     url='https://github.com/awakens-dev/genomelink-python',
-    packages=['genomelink'],
+    packages=['genomelink', 'genomelink.resource'],
     install_requires=[
         'requests',
         'requests_oauthlib'
