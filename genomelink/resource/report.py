@@ -6,6 +6,10 @@ class Report(object):
     @staticmethod
     def fetch(name, population, token=''):
         path = '{}/v1/reports/{name}/?population={population}'.format(api_base, name=name, population=population)
+
+        if type(token) == str:
+            token = {'token_type': 'Bearer', 'access_token': token}
+
         session = OAuth2Session(token=token)
         response = session.get(path).json()
         return Report(response)
