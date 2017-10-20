@@ -8,7 +8,7 @@ with open(os.path.join(here, 'README.rst')) as f:
 
 setup(
     name='genomelink',
-    version='0.1.1',
+    version='0.1.2',
     description='GENOMELINK',
     long_description='',
     author='AWAKENS',
