@@ -1,4 +1,6 @@
-# genomelink-python
+# GENOME LINK Python SDK
+
+Python client library to quickly get started with the GENOME LINK API
 
 ```
 >>> import genomelink
