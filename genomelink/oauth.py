@@ -1,6 +1,11 @@
 import os
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 from requests_oauthlib import OAuth2Session
 from genomelink import api_base
+from genomelink.errors import raise_oauth_error
 
 
 class OAuth(object):
@@ -24,6 +29,12 @@ class OAuth(object):
             client_secret = os.environ['GENOMELINK_CLIENT_SECRET']
         if not callback_url:
             callback_url = os.environ['GENOMELINK_CALLBACK_URL']
+
+        query = urlparse.parse_qs(urlparse.urlparse(request_url).query)
+        error = query.get('error')
+        if error:
+            error_code = error[0]
+            raise_oauth_error(error_code)
 
         path = '{}/oauth/token'.format(api_base)
         session = OAuth2Session(client_id, redirect_uri=callback_url)

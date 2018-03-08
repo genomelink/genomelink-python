@@ -8,7 +8,7 @@ with open(os.path.join(here, 'README.md')) as f:
 
 setup(
     name='genomelink',
-    version='0.1.4',
+    version='0.1.5',
     description='GENOMELINK',
     long_description='',
     author='AWAKENS',
@@ -25,11 +25,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        # 'Programming Language :: Python :: 3',
-        # 'Programming Language :: Python :: 3.3',
-        # 'Programming Language :: Python :: 3.4',
-        # 'Programming Language :: Python :: 3.5',
-        # 'Programming Language :: Python :: 3.6',
-        # 'Programming Language :: Python :: Implementation :: PyPy'
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Scientific/Engineering :: Bio-Informatics',
     ])
