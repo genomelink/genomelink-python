@@ -12,6 +12,32 @@ class OAuthError(GenomeLinkError):
         message = '(%s) %s' % (self.error, self.description)
         super(OAuthError, self).__init__(message)
 
+class TokenExpiredError(OAuthError):
+    error = 'token_expired'
+
+class InsecureTransportError(OAuthError):
+    error = 'insecure_transport'
+    description = 'OAuth 2 MUST utilize https.'
+
+class MismatchingStateError(OAuthError):
+    error = 'mismatching_state'
+    description = 'CSRF Warning! State not equal in request and response.'
+
+class MissingCodeError(OAuthError):
+    error = 'missing_code'
+
+class MissingTokenError(OAuthError):
+    error = 'missing_token'
+
+class MissingTokenTypeError(OAuthError):
+    error = 'missing_token_type'
+
+class FatalClientError(OAuthError):
+    """
+    Errors during authorization where user should not be redirected back.
+    """
+    pass
+
 class InvalidRequestError(OAuthError):
     """
     The request is missing a required parameter, includes an invalid
@@ -46,11 +72,17 @@ class InvalidScopeError(OAuthError):
 class ServerError(OAuthError):
     """
     The authorization server encountered an unexpected condition that
-    prevented it from fulfilling the request.  (This error code is needed
-    because a 500 Internal Server Error HTTP status code cannot be returned
-    to the client via a HTTP redirect.)
+    prevented it from fulfilling the request.
     """
     error = 'server_error'
+    description = __doc__
+
+class TemporarilyUnavailableError(OAuthError):
+    """
+    The authorization server is currently unable to handle the request
+    due to a temporary overloading or maintenance of the server.
+    """
+    error = 'temporarily_unavailable'
     description = __doc__
 
 class InvalidClientError(OAuthError):
@@ -88,28 +120,52 @@ class UnsupportedGrantTypeError(OAuthError):
     error = 'unsupported_grant_type'
     description = __doc__
 
+class UnsupportedTokenTypeError(OAuthError):
+    """
+    The authorization server does not support the revocation of the
+    presented token type.  I.e. the client tried to revoke an access token
+    on a server not supporting this feature.
+    """
+    error = 'unsupported_token_type'
+    description = __doc__
+
+class InvalidTokenError(OAuthError):
+    """
+    The access token provided is expired, revoked, malformed,
+    or invalid for other reasons.
+    """
+    error = 'invalid_token'
+    description = __doc__
+
+class InsufficientScopeError(OAuthError):
+    """
+    The request requires higher privileges than provided by
+    the access token.
+    """
+    error = 'insufficient_scope'
+    description = __doc__
+
 _oauth_errors = [
-    # TokenExpiredError,
-    # InsecureTransportError,
-    # MismatchingStateError,
-    # MissingCodeError,
-    # MissingTokenError,
-    # MissingTokenTypeError,
-    # FatalClientError,
+    TokenExpiredError,
+    InsecureTransportError,
+    MismatchingStateError,
+    MissingCodeError,
+    MissingTokenError,
+    MissingTokenTypeError,
+    FatalClientError,
     InvalidRequestError,
     AccessDeniedError,
     UnsupportedResponseTypeError,
     InvalidScopeError,
     ServerError,
-    # TemporarilyUnavailableError,
+    TemporarilyUnavailableError,
     InvalidClientError,
     InvalidGrantError,
     UnauthorizedClientError,
     UnsupportedGrantTypeError,
-    # UnsupportedTokenTypeError,
-    # OpenIDClientError,
-    # InvalidTokenError,
-    # InsufficientScopeError,
+    UnsupportedTokenTypeError,
+    InvalidTokenError,
+    InsufficientScopeError,
 ]
 _oauth_error_codes = {e.error:e for e in _oauth_errors}
 
