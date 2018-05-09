@@ -8,12 +8,12 @@ with open(os.path.join(here, 'README.md')) as f:
 
 setup(
     name='genomelink',
-    version='0.1.6',
-    description='GENOMELINK',
+    version='0.2.0',
+    description='GENOME LINK',
     long_description='',
-    author='AWAKENS',
+    author='GENOME LINK',
     author_email='',
-    url='https://github.com/awakens-dev/genomelink-python',
+    url='https://github.com/genomelink/genomelink-python',
     packages=['genomelink', 'genomelink.resource'],
     install_requires=[
         'requests',
