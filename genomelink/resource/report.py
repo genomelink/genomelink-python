@@ -7,7 +7,7 @@ from genomelink.errors import GenomeLinkError
 
 class Report(object):
     @staticmethod
-    def fetch(name, population, token='', client_secret=''):
+    def fetch(name='', population='', token='', client_secret=''):
         if type(token) == str:
             token = {'token_type': 'Bearer', 'access_token': token}
 
@@ -17,14 +17,14 @@ class Report(object):
                 if not client_secret:
                     raise GenomeLinkError('GENOMELINK_CLIENT_SECRET is not provided.')
 
-            path = '{}/v1/enterprise/reports/{name}/?population={population}'.format(api_base, name=name, population=population)
+            path = '{}/v1/enterprise/reports/'.format(api_base)
             response = requests.post(path,
                                      headers={'Authorization': 'Bearer {}'.format(client_secret)},
                                      data={'token': token['access_token']})
             if response.status_code != requests.codes.ok:
                 raise GenomeLinkError('Invalid request.')
 
-            record = [Report(report) for report in response.json()['reports']]
+            record = response.json()
 
         else:
             path = '{}/v1/reports/{name}/?population={population}'.format(api_base, name=name, population=population)
