@@ -1,6 +1,6 @@
-# GENOME LINK Python SDK
+# Genomelink Python SDK
 
-Python client library to quickly get started with the GENOME LINK API
+Python client library to quickly get started with the Genomelink API
 
 ## Installation
 
